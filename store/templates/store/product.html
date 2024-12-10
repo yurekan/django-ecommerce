@@ -1,0 +1,136 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page with Miniature Thumbnails</title>
+    
+    <!-- Link to the product page CSS file -->
+    <link href="{% static 'css/product_page.css' %}" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% block container %}
+        <div class="container product-page">
+            <div class="row">
+                <!-- Product Image Carousel (Column 1) -->
+                <div class="col-md-6">
+                    <div class="product-page-carousel-container">
+                        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://via.placeholder.com/600x400?text=Product+Image+1" class="d-block w-100 product-page-image-carousel" alt="Product Image 1" id="mainImage">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://via.placeholder.com/600x400?text=Product+Image+2" class="d-block w-100 product-page-image-carousel" alt="Product Image 2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://via.placeholder.com/600x400?text=Product+Image+3" class="d-block w-100 product-page-image-carousel" alt="Product Image 3">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+            
+                    <!-- Miniature Thumbnails with Horizontal Scroll -->
+                    <div class="product-page-thumbnail-container">
+                        <img src="https://via.placeholder.com/100x60?text=Product+Image+1" alt="Thumbnail 1" class="product-page-thumbnail-image" data-bs-target="#productCarousel" data-bs-slide-to="0">
+                        <img src="https://via.placeholder.com/100x60?text=Product+Image+2" alt="Thumbnail 2" class="product-page-thumbnail-image" data-bs-target="#productCarousel" data-bs-slide-to="1">
+                        <img src="https://via.placeholder.com/100x60?text=Product+Image+3" alt="Thumbnail 3" class="product-page-thumbnail-image" data-bs-target="#productCarousel" data-bs-slide-to="2">
+                    </div>
+                </div>
+        
+                <!-- Product Details (Column 2) -->
+                <div class="col-md-6 product-page-product-details">
+                    <h2>Product Title</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod ligula ac magna venenatis vehicula. Nulla facilisi.</p>
+                    
+                    <!-- Product Price -->
+                    <p class="product-page-price">$499.99</p>
+        
+                    <!-- Product Description -->
+                    <h4>Product Description</h4>
+                    <p>This product is designed to give you the best experience in [product category]. It features a [feature 1], [feature 2], and [feature 3]. Perfect for [target audience]!</p>
+        
+                    <!-- Add to Cart Button -->
+                    <button class="btn btn-success">Buy</button>
+        
+                    <!-- Additional Information -->
+                    <h5>Additional Information</h5>
+                    <ul>
+                        <li>Material: High-quality leather</li>
+                        <li>Dimensions: 10x5x3 inches</li>
+                        <li>Color: Black</li>
+                        <li>Weight: 1.2 lbs</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Static Related Products Section -->
+            <h3 class="mt-5">Related Products</h3>
+            <div class="row">
+                <!-- Static Related Product 1 -->
+                <div class="col-md-4">
+                    <div class="box-element product-page-product">
+                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+1">
+                        <div class="product-page-product">
+                            <h5><strong>Related Product 1</strong></h5>
+                            <h6><strong>Description of Related Product 1</strong></h6>
+                            <p>Highlights: Feature 1, Feature 2, Feature 3</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                            <a class="btn btn-outline-success view-product" href="#">View</a>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.4999.00</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Static Related Product 2 -->
+                <div class="col-md-4">
+                    <div class="box-element product-page-product">
+                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+2">
+                        <div class="product-page-product">
+                            <h5><strong>Related Product 2</strong></h5>
+                            <h6><strong>Description of Related Product 2</strong></h6>
+                            <p>Highlights: Feature A, Feature B, Feature C</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                            <a class="btn btn-outline-success view-product" href="#">View</a>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.2999.00</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Static Related Product 3 -->
+                <div class="col-md-4">
+                    <div class="box-element product-page-product">
+                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+3">
+                        <div class="product-page-product">
+                            <h5><strong>Related Product 3</strong></h5>
+                            <h6><strong>Description of Related Product 3</strong></h6>
+                            <p>Highlights: Feature X, Feature Y, Feature Z</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                            <a class="btn btn-outline-success view-product" href="#">View</a>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.6999.00</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>
