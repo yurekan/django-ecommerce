@@ -1,0 +1,156 @@
+import ast
+import pandas as pd
+from django.core.management.base import BaseCommand
+from store.models import Product 
+
+def safe_literal_eval(value):
+    if value is None:
+        return None
+    else:
+        ast.literal_eval(value)
+
+class Command(BaseCommand):
+    help = 'Update products with data from a CSV file using pandas'
+
+    def add_arguments(self, parser):
+        parser.add_argument('csv_file', type=str, help='Path to the CSV file')
+
+    def handle(self, *args, **options):
+        csv_file_path = options['csv_file']
+
+        # Read the CSV file into a pandas DataFrame
+        df = pd.read_csv(csv_file_path)
+
+        # Iterate over each row in the DataFrame
+        for index, row in df.iterrows():
+            # Try to find an existing Product instance by name
+            product, created = Product.objects.get_or_create(name=row['name'])
+            
+            price_list = ast.literal_eval(row.get('price', None))
+            price = [float(price_string.replace('Rs.', '').replace(',', '')) for price_string in price_list]
+            product.price = price
+            product.highlights = row.get('highlights', None)
+            product.digital = row.get('digital', False)
+            product.images = ast.literal_eval(row.get('images', None))
+            product.rating = float(row.get('rating', None))
+            product.review_count = row.get('review_count', None)
+            product.model = ast.literal_eval(row.get('model', None))
+            product.combo = safe_literal_eval(row.get('combo', None))
+            product.description = ast.literal_eval(row.get('description', None))
+            product.features = safe_literal_eval(row.get('features', None))
+            product.sub_category = ast.literal_eval(row.get('sub_category', None))
+            product.category = row.get('category', None)
+            product.specifications = safe_literal_eval(row.get('specifications', None))
+            print(row.get('size', None))
+            print(safe_literal_eval(row.get('size', None)))
+            product.size = safe_literal_eval(row.get('size', None))
+
+            # Save the updated product
+            product.save()
+
+        self.stdout.write(self.style.SUCCESS('Products updated successfully!'))
+
+
+from django.db import models
+from django.contrib.auth.models import User
+
+# Create your models here.
+
+class Customer(models.Model):
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class Product(models.Model):
+    name = models.CharField(max_length=200, null=True)
+    price = models.JSONField(null=True, blank=True)
+    highlights = models.CharField(max_length=500, null=True)
+    digital = models.BooleanField(default=False, null=True, blank=False)
+    image = models.ImageField(null=True, blank=True)
+    images = models.JSONField(null=True, blank=True)  # To store an array of image src links
+    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    review_count = models.IntegerField(null=True, blank=True)
+    model = models.JSONField(null=True, blank=True)  # Array of strings
+    combo = models.JSONField(null=True, blank=True)  # Array of strings
+    description = models.JSONField(null=True, blank=True)  # Array of strings
+    features = models.JSONField(null=True, blank=True)  # Array of strings
+    sub_category = models.CharField(max_length=200, null=True, blank=True)
+    category = models.CharField(max_length=200, null=True, blank=True)
+    specifications = models.JSONField(null=True, blank=True)  # Dictionary
+    size = models.JSONField(null=True, blank=True)
+    
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = '/images/placeholder.png'
+        return url
+
+    def __str__(self):
+        return self.name
+    
+
+class Order(models.Model):
+
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    completed = models.BooleanField(default=False, null=True, blank=False)
+    transaction_id = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return str(self.id)
+    
+    @property
+    def get_cart_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+    
+    @property
+    def get_cart_items(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
+        return total
+    
+    @property
+    def shipping(self):
+        shipping = False
+        orderitems = self.orderitem_set.all()
+        for i in orderitems:
+            if i.product.digital == False:
+                shipping = True
+        return shipping
+    
+
+class OrderItem(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def get_total(self):
+        total = self.product.price * self.quantity
+        return total
+
+
+class ShippingAddress(models.Model):
+    
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True)
+    city = models.CharField(max_length=200, null=True)
+    state = models.CharField(max_length=200, null=True)
+    zipcode = models.CharField(max_length=200, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.address
