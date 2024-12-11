@@ -13,6 +13,8 @@
     </head>
     <body>
         {% block container %}
+
+        <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
             <div class="row">
                 {% for product in products %}
                 
@@ -31,6 +33,8 @@
 
                 {% endfor %}
             </div>
+        </div>
+
         {% endblock container %}
     </body>
 </html>

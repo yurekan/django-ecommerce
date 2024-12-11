@@ -6,6 +6,15 @@ import datetime
 from .utils import cookieCart, cartData, guestOrder
 
 # Create your views here.
+
+def home(request):
+    
+    data = cartData(request)
+    cartItems = data['cartItems']
+
+    context = {'cartItems': cartItems}
+    return render(request, 'store/home.html', context)
+
 def store(request):
     products = Product.objects.all()
 
@@ -37,11 +46,11 @@ def checkout(request):
 
 def product(request, product_id):
 
-    # data = json.loads(request.body)
-    # productId = data['productId']
+    data = cartData(request)
+    cartItems = data['cartItems']
     product = Product.objects.get(id=product_id)
-    print(product.price)
-    context = {'product': product}
+
+    context = {'product': product, 'cartItems': cartItems}
     return render(request, 'store/product.html', context)
 
 

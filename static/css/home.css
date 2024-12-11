@@ -1,0 +1,189 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body */
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  
+  /* Hero Section */
+  .home-hero {
+    background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+  }
+  
+  .home-hero-content {
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .home-cta-button {
+    background: #0072ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Product Section */
+  .home-products {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  .home-product-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  /* Ensure consistent card height */
+  .home-card {
+    border: none;
+    height: 100%; /* Makes all cards the same height */
+    display: flex;
+    flex-direction: column; /* Align content vertically */
+    justify-content: space-between; /* Distribute space evenly */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .home-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .home-card-img-top {
+    height: 200px; /* Set a consistent height for images */
+    object-fit: cover; /* Ensures the image fits nicely */
+  }
+  
+  .home-card-body {
+    flex-grow: 1; /* Ensures the content stretches evenly */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .home-card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .home-card-text {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Promotions Section */
+  #home-promotions-offers {
+    background-color: #f2f5fa;
+  }
+  
+  #home-promotions-offers h2 {
+    color: #333333;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .home-promotion-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .home-promotion-card h3 {
+    color: #222222;
+    font-size: 20px;
+  }
+  
+  .home-promotion-card p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666666;
+  }
+  
+  .home-promotion-card img {
+    border-radius: 10px;
+  }
+  
+  .home-promotion-card .home-btn {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  .home-promotion-card .home-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .home-shadow-sm {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .home-product-cards,
+    .home-promo-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .home-card,
+    .home-promo-item {
+      margin-bottom: 20px;
+    }
+  
+    #home-promotions-offers {
+      padding: 20px;
+    }
+  
+    .home-promotion-card {
+      padding: 15px;
+    }
+  
+    .home-promotion-card img {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  
+    .home-promotion-card h3 {
+      font-size: 18px;
+    }
+  
+    .home-promotion-card p {
+      font-size: 14px;
+    }
+  
+    .home-promotion-card .home-btn {
+      font-size: 14px;
+    }
+  }
+  
+  .home-latest-products {
+    background-color: #f9f9f9;
+  }
+  
+  .home-carousel-control-prev-icon,
+  .home-carousel-control-next-icon {
+    background-color: #000;
+    border-radius: 50%;
+  }
+  
+  .home-carousel-inner {
+    padding-top: 20px;
+  }
+  

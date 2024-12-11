@@ -8,8 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/product_page.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
         <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
         <script type='text/javascript'>
             
             user = '{{request.user}}'
@@ -66,7 +67,7 @@
         <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body">
             <div class="container-fluid">
                 <div class="container">
-                    <a href="{% url 'store' %}">
+                    <a href="{% url 'home' %}">
                         <img src="https://sony.scene7.com/is/content/sonyglobalsolutions/sony-logo?$S7Product$" alt="Bootstrap" width="70" height="64">
                     </a>
                 </div>
@@ -75,7 +76,7 @@
                 </button>
                 <ul class="navbar-nav d-flex justify-content-evenly w-100 mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="#">Product</a>
+                        <a class="nav-link active text-white" aria-current="page" href="{% url 'store' %}">Product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#">Link</a>
@@ -108,12 +109,117 @@
                 </div>                
             </div>
         </nav>
-        <div class="container">
+        <!-- <div class="container">
             <br>
-            {% block container %}
 
-            {% endblock container %}
-        </div>
+        </div> -->
+
+        {% block container %}
+
+        {% endblock container %}
+
+          <!-- Footer Section -->
+        <footer class="bg-black text-light py-4">
+            <div class="container">
+            <div class="row">
+                <!-- Find a Store Section -->
+                <div class="col-md-3 mb-4">
+                <h5 class="fw-bold text-uppercase">Find a Store</h5>
+                <div class="d-flex align-items-center bg-dark p-2 rounded">
+                    <span class="me-2 text-danger">
+                    <i class="fas fa-map-marker-alt"></i>
+                    </span>
+                    <input
+                    type="text"
+                    class="form-control bg-transparent border-0 text-light"
+                    placeholder="Location"
+                    />
+                    <button class="btn btn-primary ms-2">Search</button>
+                </div>
+                <a href="#" class="text-decoration-underline d-block mt-2">See Our Locations</a>
+                </div>
+        
+                <!-- Support Section -->
+                <div class="col-md-3 mb-4">
+                <h5 class="fw-bold text-uppercase">Support</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Online Help</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Track Repair Status</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Locate Service Centres</a></li>
+                </ul>
+                </div>
+        
+                <!-- In the News Section -->
+                <div class="col-md-3 mb-4">
+                <h5 class="fw-bold text-uppercase">In the News</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Press Center</a></li>
+                </ul>
+                </div>
+        
+                <!-- Contact Us Section -->
+                <div class="col-md-3 mb-4">
+                <h5 class="fw-bold text-uppercase">Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light text-decoration-none">Newsletter Subscriptions</a></li>
+                    <li><a href="#" class="text-light text-decoration-none">Contact Us</a></li>
+                </ul>
+                </div>
+            </div>
+        
+            <hr class="bg-light" />
+        
+            <div class="row align-items-center">
+                <!-- Country Section -->
+                <div class="col-md-3 mb-3 mb-md-0">
+                <button class="btn btn-outline-light">India</button>
+                </div>
+        
+                <!-- Links Section -->
+                <div class="col-md-6 text-center">
+                <a href="#" class="text-light mx-2">Company Info</a>
+                <a href="#" class="text-light mx-2">E-Waste Management</a>
+                <a href="#" class="text-light mx-2">Corporate Social Responsibility</a>
+                <a href="#" class="text-light mx-2">Careers</a>
+                <a href="#" class="text-light mx-2">Site Map</a>
+                </div>
+        
+                <!-- Social Media Icons -->
+                <div class="col-md-3 text-end">
+                <a href="#" class="text-light mx-1"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-light mx-1"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="text-light mx-1"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-light mx-1"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        
+            <hr class="bg-light" />
+        
+            <!-- Bottom Section -->
+            <div class="row">
+            <div class="col-md-12 text-center">
+            <!-- Terms and Conditions and Privacy Policy Links -->
+            <div class="d-flex justify-content-center mb-2">
+                <a href="#" class="text-light me-3" style="font-size: 14px;">TERMS AND CONDITIONS OF WEBSITE USE</a>
+                <a href="#" class="text-light me-3" style="font-size: 14px;">PRIVACY POLICY</a>
+            </div>
+        
+            <!-- Sony Group Portal Site Button -->
+            <div class="mb-2">
+                <button class="btn btn-outline-light" style="font-size: 14px; padding: 5px 15px;">
+                Sony Group Portal Site
+                </button>
+            </div>
+        
+            <!-- Copyright Notice -->
+            <p class="mt-2" style="font-size: 14px; color: #999;">
+                Copyright © 2023 Sony India. All rights reserved.
+            </p>
+            </div>
+            </div>
+        
+            </div>
+        </footer>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>

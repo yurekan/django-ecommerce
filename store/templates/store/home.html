@@ -1,0 +1,181 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sony | Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+  {% block container %}
+
+  <!-- Hero Section -->
+  <section class="home-hero">
+    <div class="home-hero-content">
+      <h1>Experience the Ultimate Bravia 4K Cinema</h1>
+      <p>Revolutionize your home entertainment with stunning visuals and sound.</p>
+      <button class="home-cta-button">Learn More</button>
+    </div>
+  </section>
+
+  <!-- Latest Products Section -->
+<section class="home-latest-products py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Latest Products</h2>
+    <div id="home-latestProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <!-- First Product Row -->
+        <div class="carousel-item active">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 1">
+                <div class="card-body">
+                  <h5 class="card-title">Bravia OLED 4K TV</h5>
+                  <p class="card-text">Experience lifelike picture quality with ultra-rich details and stunning colors.</p>
+                  <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 2">
+                <div class="card-body">
+                  <h5 class="card-title">PlayStation 5</h5>
+                  <p class="card-text">Redefining gaming with high-speed performance and innovative features.</p>
+                  <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 3">
+                <div class="card-body">
+                  <h5 class="card-title">Sony Alpha Camera</h5>
+                  <p class="card-text">Capture the moment with precision and unparalleled image quality.</p>
+                  <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Product Row -->
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 4">
+                <div class="card-body">
+                  <h5 class="card-title">Sony Headphones</h5>
+                  <p class="card-text">Immerse yourself in sound with noise-cancellation technology.</p>
+                  <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 5">
+                <div class="card-body">
+                  <h5 class="card-title">Sony Soundbar</h5>
+                  <p class="card-text">Upgrade your home theater system with powerful, immersive sound.</p>
+                  <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product 6">
+                <div class="card-body">
+                  <h5 class="card-title">Sony Xperia Phone</h5>
+                  <p class="card-text">Stay connected with advanced features and sleek design.</p>
+                  <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#home-latestProductsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#home-latestProductsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="home-promotions-offers" class="py-5">
+  <div class="container">
+    <h2 class="text-uppercase fw-bold mb-4">Promotions and Offers</h2>
+    
+    <!-- Promotion Card 1 -->
+    <div class="row align-items-center mb-5 home-promotion-card shadow-sm">
+      <div class="col-md-6">
+        <img
+          src="https://sony.scene7.com/is/image/sonyglobalsolutions/01-Sony-liv-banner-1170x727?$promoOfferLarge$"
+          alt="Promotion 1"
+          class="img-fluid rounded"
+        />
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold">Get 3 Months of Sony LIV Subscription</h3>
+        <p class="text-secondary">
+          Register your Sony BRAVIA and unlock 3 months of Sony LIV entertainment.
+          Limited-time offer!
+        </p>
+        <a href="#" class="btn btn-primary px-4 py-2">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Promotion Card 2 -->
+    <div class="row align-items-center mb-5 home-promotion-card shadow-sm">
+      <div class="col-md-6 order-md-2">
+        <img
+          src="https://www.sony.co.in/content/dam/sony/contents/regional-FSMC/india/common/homepage/promotions-and-offers/2024/alpha-warranty-offer/Alpha%20Warranty%20Offer.jpg"
+          alt="Promotion 2"
+          class="img-fluid rounded"
+        />
+      </div>
+      <div class="col-md-6 order-md-1">
+        <h3 class="fw-bold">Enhance Protection: Avail 3-Year Comprehensive Warranty Offer</h3>
+        <p class="text-secondary">
+            Register Sony Alpha cameras to enjoy 2 years standard + 1 year extended warranty.
+        </p>
+        <a href="#" class="btn btn-primary px-4 py-2">Learn More</a>
+      </div>
+    </div>
+
+    <!-- Promotion Card 3 -->
+    <div class="row align-items-center home-promotion-card shadow-sm">
+      <div class="col-md-6">
+        <img
+          src="https://www.sony.co.in/content/dam/sony/contents/regional-FSMC/india/common/homepage/promotions-and-offers/2024/lens-warranty-offer/Lens%20Warranty%20Offer.jpg"
+          alt="Promotion 3"
+          class="img-fluid rounded"
+        />
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold">Get a 1-year Extended Warranty on Sony G and GM Lenses</h3>
+        <p class="text-secondary">
+            Register G & GM lenses for a 1-year extended warranty, in addition to the standard 2-year warranty.
+        </p>
+        <a href="#" class="btn btn-primary px-4 py-2">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+</body>
+</html>
