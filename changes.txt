@@ -1,386 +1,129 @@
-{% extends 'store/main.html' %}
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page with Miniature Thumbnails</title>
-    
-    <!-- Link to the product page CSS file -->
-    <link href="{% static 'css/product_page.css' %}" rel="stylesheet">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Card</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    {% block container %}
-        <div class="container product-page">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="product-page-carousel-container">
-                        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                {% for image in product.images %}
-                                    {% if forloop.counter == 1 %}
-                                        <div class="carousel-item active">
-                                            <img src="{{image}}" class="d-block w-100 product-page-image-carousel" alt="Product Image" id="mainImage">
-                                        </div>
-                                    {% else %}
-                                        <div class="carousel-item">
-                                            <img src="{{image}}" class="d-block w-100 product-page-image-carousel" alt="Product Image">
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                
-                    <!-- Miniature Thumbnails with Horizontal Scroll -->
-                    <div class="product-page-thumbnail-container">
-                        {% for image in product.images %}
-                            <img src="{{image}}" alt="Thumbnail {{loop.index}}" class="product-page-thumbnail-image" data-bs-target="#productCarousel" data-bs-slide-to="{{loop.index}}">
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Product Details (Column 2) -->
-                <div class="col-md-6 product-page-product-details">
-                    <h2>{{product.name}}</h2>
-                    <p>{{product.highlights}}</p>
-                    
-                    <!-- Product Price -->
-                    <p class="product-page-price">Rs. {{product.price}}</p>
-        
-                    <!-- Product Description -->
-                    <h4>{{description_title}}</h4>
-                    <p>{{description_value}}</p>
-        
-                    <!-- Add to Cart Button -->
-                    <button class="btn btn-success">Buy</button>
-        
-                    <!-- Additional Information -->
-                    <h5>Additional Information</h5>
-                    <ul>
-                        <li>Material: High-quality leather</li>
-                        <li>Dimensions: 10x5x3 inches</li>
-                        <li>Color: Black</li>
-                        <li>Weight: 1.2 lbs</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Bravia Section -->
-            <div class="row product-page-bravia-section">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between flex-wrap bg-light p-4 rounded">
-                        <div class="product-page-bravia-item">
-                            <h5 class="fw-bold">BRAVIA 7</h5>
-                            <p>K-55XR70<br>139 cm (55)</p>
-                            <p class="fw-bold">MRP Rs. 249,990 <span class="text-muted">(incl. of all taxes)</span></p>
-                        </div>
-                        <div class="product-page-bravia-item">
-                            <h5 class="fw-bold">BRAVIA 7</h5>
-                            <p>K-65XR70<br>164 cm (65)</p>
-                            <p class="fw-bold">MRP Rs. 299,990 <span class="text-muted">(incl. of all taxes)</span></p>
-                        </div>
-                        <div class="product-page-bravia-item">
-                            <h5 class="fw-bold">BRAVIA 7</h5>
-                            <p>K-75XR70<br>189 cm (75)</p>
-                            <p class="fw-bold">MRP Rs. 449,990 <span class="text-muted">(incl. of all taxes)</span></p>
-                        </div>
-                        <div>
-                            <button class="btn btn-danger">Buy</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Static Related Products Section -->
-            <h3 class="mt-5">Related Products</h3>
-            <div class="row">
-                <!-- Static Related Product 1 -->
-                <div class="col-md-4">
-                    <div class="box-element product-page-product">
-                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+1">
-                        <div class="product-page-product">
-                            <h5><strong>Related Product 1</strong></h5>
-                            <h6><strong>Description of Related Product 1</strong></h6>
-                            <p>Highlights: Feature 1, Feature 2, Feature 3</p>
-                            <hr>
-                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                            <a class="btn btn-outline-success view-product" href="#">View</a>
-                            <p style="display: inline-block; float:right">MRP <strong>Rs.4999.00</strong></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Static Related Product 2 -->
-                <div class="col-md-4">
-                    <div class="box-element product-page-product">
-                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+2">
-                        <div class="product-page-product">
-                            <h5><strong>Related Product 2</strong></h5>
-                            <h6><strong>Description of Related Product 2</strong></h6>
-                            <p>Highlights: Feature A, Feature B, Feature C</p>
-                            <hr>
-                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                            <a class="btn btn-outline-success view-product" href="#">View</a>
-                            <p style="display: inline-block; float:right">MRP <strong>Rs.2999.00</strong></p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Static Related Product 3 -->
-                <div class="col-md-4">
-                    <div class="box-element product-page-product">
-                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+3">
-                        <div class="product-page-product">
-                            <h5><strong>Related Product 3</strong></h5>
-                            <h6><strong>Description of Related Product 3</strong></h6>
-                            <p>Highlights: Feature X, Feature Y, Feature Z</p>
-                            <hr>
-                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
-                            <a class="btn btn-outline-success view-product" href="#">View</a>
-                            <p style="display: inline-block; float:right">MRP <strong>Rs.6999.00</strong></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container mt-5">
+    <div class="card product-card">
+      <img src="https://via.placeholder.com/300" alt="BRAVIA 9 TV" class="card-img-top">
+      <div class="card-body">
+        <h5 class="product-title">BRAVIA 9</h5>
+        <p class="product-subtitle">Our brightest 4K ever</p>
+        <p class="product-description">BRAVIA 9 | XR Processor | Mini LED | 4K Ultra HD | High Dynamic Range (HDR) | Smart TV (Google TV)</p>
+        <div class="size-options mb-3">
+          <button class="btn btn-outline-dark size-btn active" data-size="189" data-price="649,900">189 cm (75)</button>
+          <button class="btn btn-outline-dark size-btn" data-size="215" data-price="849,900">215 cm (85)</button>
         </div>
-    {% endblock container %}
+        <p class="product-price">MRP <span id="price">Rs.649,900</span> for <span id="size">189 cm (75)</span> model</p>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-primary">Learn more</button>
+          <button class="btn btn-danger">Buy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sizeButtons = document.querySelectorAll('.size-btn');
+    const priceText = document.getElementById('price');
+    const sizeText = document.getElementById('size');
+
+    sizeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        sizeButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        const size = button.getAttribute('data-size');
+        const price = button.getAttribute('data-price');
+
+        sizeText.textContent = `${size} cm (${size === '189' ? '75' : '85'})`;
+        priceText.textContent = `Rs.${price}`;
+      });
+    });
+  </script>
 </body>
 </html>
 
-/* static/css/product_page.css */
-
-.product-page {
-    margin-top: 40px;
-    margin-bottom: 40px;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-.product-page-image-carousel {
-    max-height: 450px;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
+.product-card {
+  max-width: 350px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
-.product-page-image-carousel:hover {
-    transform: scale(1.02);
+.product-card img {
+  width: 100%;
+  height: auto;
 }
 
-.product-page-product-details {
-    padding-left: 30px;
-    padding-top: 20px;
+.product-title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.product-page-price {
-    font-size: 28px;
-    color: #2e6da4;
-    margin-top: 15px;
-    font-weight: bold;
+.product-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
 }
 
-.product-page-thumbnail-image {
-    width: 120px;
-    height: 80px;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    border-radius: 5px;
-    border: 2px solid transparent;
+.product-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
 }
 
-.product-page-thumbnail-image:hover {
-    transform: scale(1.1);
-    border-color: #2e6da4;
+.size-options {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-.product-page-thumbnail-container {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    justify-content: center;
+.size-options .size-btn {
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.carousel-control-prev, .carousel-control-next {
-    filter: invert(1);
+.size-options .size-btn.active {
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
 }
 
-.product-page-carousel-container {
-    margin-bottom: 30px;
+.product-price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-.product-page-thumbnail-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.product-page-thumbnail-container::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,.1);
-    border-radius: 5px;
-}
-
-.product-page-thumbnail-container::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.product-page-product-details h2, .product-page-product-details h4, .product-page-product-details h5 {
-    margin-top: 20px;
-    font-weight: 600;
-}
-
-.product-page-product-details p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
-}
-
-.product-page-product-details ul {
-    list-style-type: none;
-    padding-left: 0;
-    font-size: 16px;
-}
-
-.product-page-product-details ul li {
-    margin-bottom: 8px;
-}
-
-.btn-primary {
-    margin-top: 25px;
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
-/* New styles for vertical carousel of related products */
-.product-page-carousel-vertical {
-    height: 300px; /* Set height for carousel */
-    overflow: hidden;
-    position: relative;
-}
-
-.product-page-carousel-inner {
-    display: flex;
-    flex-direction: column;
-}
-
-.product-page-carousel-item {
-    height: 300px; /* Set height for each carousel item */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.product-page-carousel-control-prev, .product-page-carousel-control-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-}
-
-.product-page-carousel-control-prev-icon, .product-page-carousel-control-next-icon {
-    background-color: white;
-    border-radius: 50%;
-    padding: 10px;
-}
-
-.product-page-carousel-control-prev-icon {
-    transform: rotate(180deg);
-}
-
-/* Optional: Styling for the related product section */
-.product-page-related-products-section {
-    margin-top: 50px;
-    padding-top: 30px;
-    text-align: center;
-}
-
-.product-page-related-products-section h3 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Custom hover effects for carousel items */
-.product-page-related-products-section .product-page-product {
-    transition: transform 0.3s ease;
-}
-
-.product-page-related-products-section .product-page-product:hover {
-    transform: scale(1.05);
-}
-
-/* Adjust margins for carousel items to prevent overlap */
-.product-page-related-products-section .product-page-carousel-item {
-    margin-bottom: 20px;
-}
-
-/* Styles for Bravia Section */
-.product-page-bravia-section {
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-.product-page-bravia-card {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
-}
-
-.product-page-bravia-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.product-page-bravia-card-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.product-page-bravia-card-model {
-    font-size: 14px;
-    color: #6c757d;
-    margin-bottom: 10px;
-}
-
-.product-page-bravia-card-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.product-page-bravia-buy-btn {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.product-page-bravia-buy-btn:hover {
-    background-color: #c82333;
+button {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
