@@ -44,7 +44,7 @@
                             </button>
                         </div>
                     </div>
-            
+                
                     <!-- Miniature Thumbnails with Horizontal Scroll -->
                     <div class="product-page-thumbnail-container">
                         {% for image in product.images %}
@@ -76,6 +76,32 @@
                         <li>Color: Black</li>
                         <li>Weight: 1.2 lbs</li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- Bravia Section -->
+            <div class="row product-page-bravia-section">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between flex-wrap bg-light p-4 rounded">
+                        <div class="product-page-bravia-item">
+                            <h5 class="fw-bold">BRAVIA 7</h5>
+                            <p>K-55XR70<br>139 cm (55)</p>
+                            <p class="fw-bold">MRP Rs. 249,990 <span class="text-muted">(incl. of all taxes)</span></p>
+                        </div>
+                        <div class="product-page-bravia-item">
+                            <h5 class="fw-bold">BRAVIA 7</h5>
+                            <p>K-65XR70<br>164 cm (65)</p>
+                            <p class="fw-bold">MRP Rs. 299,990 <span class="text-muted">(incl. of all taxes)</span></p>
+                        </div>
+                        <div class="product-page-bravia-item">
+                            <h5 class="fw-bold">BRAVIA 7</h5>
+                            <p>K-75XR70<br>189 cm (75)</p>
+                            <p class="fw-bold">MRP Rs. 449,990 <span class="text-muted">(incl. of all taxes)</span></p>
+                        </div>
+                        <div>
+                            <button class="btn btn-danger">Buy</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -134,7 +160,6 @@
     {% endblock container %}
 </body>
 </html>
-
 
 /* static/css/product_page.css */
 
@@ -303,4 +328,59 @@
 /* Adjust margins for carousel items to prevent overlap */
 .product-page-related-products-section .product-page-carousel-item {
     margin-bottom: 20px;
+}
+
+/* Styles for Bravia Section */
+.product-page-bravia-section {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.product-page-bravia-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.product-page-bravia-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product-page-bravia-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-page-bravia-card-model {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.product-page-bravia-card-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-page-bravia-buy-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-page-bravia-buy-btn:hover {
+    background-color: #c82333;
 }
