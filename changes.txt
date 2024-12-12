@@ -1,156 +1,306 @@
-import ast
-import pandas as pd
-from django.core.management.base import BaseCommand
-from store.models import Product 
+{% extends 'store/main.html' %}
+{% load static %}
 
-def safe_literal_eval(value):
-    if value is None:
-        return None
-    else:
-        ast.literal_eval(value)
-
-class Command(BaseCommand):
-    help = 'Update products with data from a CSV file using pandas'
-
-    def add_arguments(self, parser):
-        parser.add_argument('csv_file', type=str, help='Path to the CSV file')
-
-    def handle(self, *args, **options):
-        csv_file_path = options['csv_file']
-
-        # Read the CSV file into a pandas DataFrame
-        df = pd.read_csv(csv_file_path)
-
-        # Iterate over each row in the DataFrame
-        for index, row in df.iterrows():
-            # Try to find an existing Product instance by name
-            product, created = Product.objects.get_or_create(name=row['name'])
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page with Miniature Thumbnails</title>
+    
+    <!-- Link to the product page CSS file -->
+    <link href="{% static 'css/product_page.css' %}" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% block container %}
+        <div class="container product-page">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="product-page-carousel-container">
+                        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for image in product.images %}
+                                    {% if forloop.counter == 1 %}
+                                        <div class="carousel-item active">
+                                            <img src="{{image}}" class="d-block w-100 product-page-image-carousel" alt="Product Image" id="mainImage">
+                                        </div>
+                                    {% else %}
+                                        <div class="carousel-item">
+                                            <img src="{{image}}" class="d-block w-100 product-page-image-carousel" alt="Product Image">
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
             
-            price_list = ast.literal_eval(row.get('price', None))
-            price = [float(price_string.replace('Rs.', '').replace(',', '')) for price_string in price_list]
-            product.price = price
-            product.highlights = row.get('highlights', None)
-            product.digital = row.get('digital', False)
-            product.images = ast.literal_eval(row.get('images', None))
-            product.rating = float(row.get('rating', None))
-            product.review_count = row.get('review_count', None)
-            product.model = ast.literal_eval(row.get('model', None))
-            product.combo = safe_literal_eval(row.get('combo', None))
-            product.description = ast.literal_eval(row.get('description', None))
-            product.features = safe_literal_eval(row.get('features', None))
-            product.sub_category = ast.literal_eval(row.get('sub_category', None))
-            product.category = row.get('category', None)
-            product.specifications = safe_literal_eval(row.get('specifications', None))
-            print(row.get('size', None))
-            print(safe_literal_eval(row.get('size', None)))
-            product.size = safe_literal_eval(row.get('size', None))
+                    <!-- Miniature Thumbnails with Horizontal Scroll -->
+                    <div class="product-page-thumbnail-container">
+                        {% for image in product.images %}
+                            <img src="{{image}}" alt="Thumbnail {{loop.index}}" class="product-page-thumbnail-image" data-bs-target="#productCarousel" data-bs-slide-to="{{loop.index}}">
+                        {% endfor %}
+                    </div>
+                </div>
 
-            # Save the updated product
-            product.save()
+                <!-- Product Details (Column 2) -->
+                <div class="col-md-6 product-page-product-details">
+                    <h2>{{product.name}}</h2>
+                    <p>{{product.highlights}}</p>
+                    
+                    <!-- Product Price -->
+                    <p class="product-page-price">Rs. {{product.price}}</p>
+        
+                    <!-- Product Description -->
+                    <h4>{{description_title}}</h4>
+                    <p>{{description_value}}</p>
+        
+                    <!-- Add to Cart Button -->
+                    <button class="btn btn-success">Buy</button>
+        
+                    <!-- Additional Information -->
+                    <h5>Additional Information</h5>
+                    <ul>
+                        <li>Material: High-quality leather</li>
+                        <li>Dimensions: 10x5x3 inches</li>
+                        <li>Color: Black</li>
+                        <li>Weight: 1.2 lbs</li>
+                    </ul>
+                </div>
+            </div>
 
-        self.stdout.write(self.style.SUCCESS('Products updated successfully!'))
+            <!-- Static Related Products Section -->
+            <h3 class="mt-5">Related Products</h3>
+            <div class="row">
+                <!-- Static Related Product 1 -->
+                <div class="col-md-4">
+                    <div class="box-element product-page-product">
+                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+1">
+                        <div class="product-page-product">
+                            <h5><strong>Related Product 1</strong></h5>
+                            <h6><strong>Description of Related Product 1</strong></h6>
+                            <p>Highlights: Feature 1, Feature 2, Feature 3</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                            <a class="btn btn-outline-success view-product" href="#">View</a>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.4999.00</strong></p>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Static Related Product 2 -->
+                <div class="col-md-4">
+                    <div class="box-element product-page-product">
+                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+2">
+                        <div class="product-page-product">
+                            <h5><strong>Related Product 2</strong></h5>
+                            <h6><strong>Description of Related Product 2</strong></h6>
+                            <p>Highlights: Feature A, Feature B, Feature C</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                            <a class="btn btn-outline-success view-product" href="#">View</a>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.2999.00</strong></p>
+                        </div>
+                    </div>
+                </div>
 
-from django.db import models
-from django.contrib.auth.models import User
-
-# Create your models here.
-
-class Customer(models.Model):
-
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.name
-    
-
-class Product(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    price = models.JSONField(null=True, blank=True)
-    highlights = models.CharField(max_length=500, null=True)
-    digital = models.BooleanField(default=False, null=True, blank=False)
-    image = models.ImageField(null=True, blank=True)
-    images = models.JSONField(null=True, blank=True)  # To store an array of image src links
-    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    review_count = models.IntegerField(null=True, blank=True)
-    model = models.JSONField(null=True, blank=True)  # Array of strings
-    combo = models.JSONField(null=True, blank=True)  # Array of strings
-    description = models.JSONField(null=True, blank=True)  # Array of strings
-    features = models.JSONField(null=True, blank=True)  # Array of strings
-    sub_category = models.CharField(max_length=200, null=True, blank=True)
-    category = models.CharField(max_length=200, null=True, blank=True)
-    specifications = models.JSONField(null=True, blank=True)  # Dictionary
-    size = models.JSONField(null=True, blank=True)
-    
-
-    @property
-    def imageURL(self):
-        try:
-            url = self.image.url
-        except:
-            url = '/images/placeholder.png'
-        return url
-
-    def __str__(self):
-        return self.name
-    
-
-class Order(models.Model):
-
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    date_ordered = models.DateTimeField(auto_now_add=True)
-    completed = models.BooleanField(default=False, null=True, blank=False)
-    transaction_id = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return str(self.id)
-    
-    @property
-    def get_cart_total(self):
-        orderitems = self.orderitem_set.all()
-        total = sum([item.get_total for item in orderitems])
-        return total
-    
-    @property
-    def get_cart_items(self):
-        orderitems = self.orderitem_set.all()
-        total = sum([item.quantity for item in orderitems])
-        return total
-    
-    @property
-    def shipping(self):
-        shipping = False
-        orderitems = self.orderitem_set.all()
-        for i in orderitems:
-            if i.product.digital == False:
-                shipping = True
-        return shipping
-    
-
-class OrderItem(models.Model):
-
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
-    quantity = models.IntegerField(default=0, null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-
-    @property
-    def get_total(self):
-        total = self.product.price * self.quantity
-        return total
+                <!-- Static Related Product 3 -->
+                <div class="col-md-4">
+                    <div class="box-element product-page-product">
+                        <img class="product-page-thumbnail" src="https://via.placeholder.com/200x200?text=Related+Product+3">
+                        <div class="product-page-product">
+                            <h5><strong>Related Product 3</strong></h5>
+                            <h6><strong>Description of Related Product 3</strong></h6>
+                            <p>Highlights: Feature X, Feature Y, Feature Z</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                            <a class="btn btn-outline-success view-product" href="#">View</a>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.6999.00</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock container %}
+</body>
+</html>
 
 
-class ShippingAddress(models.Model):
-    
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True, blank=True)
-    address = models.CharField(max_length=200, null=True)
-    city = models.CharField(max_length=200, null=True)
-    state = models.CharField(max_length=200, null=True)
-    zipcode = models.CharField(max_length=200, null=True)
-    date_added = models.DateTimeField(auto_now_add=True)
+/* static/css/product_page.css */
 
-    def __str__(self):
-        return self.address
+.product-page {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.product-page-image-carousel {
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.product-page-image-carousel:hover {
+    transform: scale(1.02);
+}
+
+.product-page-product-details {
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.product-page-price {
+    font-size: 28px;
+    color: #2e6da4;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.product-page-thumbnail-image {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.product-page-thumbnail-image:hover {
+    transform: scale(1.1);
+    border-color: #2e6da4;
+}
+
+.product-page-thumbnail-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    filter: invert(1);
+}
+
+.product-page-carousel-container {
+    margin-bottom: 30px;
+}
+
+.product-page-thumbnail-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.product-page-thumbnail-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.1);
+    border-radius: 5px;
+}
+
+.product-page-thumbnail-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.product-page-product-details h2, .product-page-product-details h4, .product-page-product-details h5 {
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.product-page-product-details p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.product-page-product-details ul {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 16px;
+}
+
+.product-page-product-details ul li {
+    margin-bottom: 8px;
+}
+
+.btn-primary {
+    margin-top: 25px;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+/* New styles for vertical carousel of related products */
+.product-page-carousel-vertical {
+    height: 300px; /* Set height for carousel */
+    overflow: hidden;
+    position: relative;
+}
+
+.product-page-carousel-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-page-carousel-item {
+    height: 300px; /* Set height for each carousel item */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-page-carousel-control-prev, .product-page-carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.product-page-carousel-control-prev-icon, .product-page-carousel-control-next-icon {
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.product-page-carousel-control-prev-icon {
+    transform: rotate(180deg);
+}
+
+/* Optional: Styling for the related product section */
+.product-page-related-products-section {
+    margin-top: 50px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.product-page-related-products-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Custom hover effects for carousel items */
+.product-page-related-products-section .product-page-product {
+    transition: transform 0.3s ease;
+}
+
+.product-page-related-products-section .product-page-product:hover {
+    transform: scale(1.05);
+}
+
+/* Adjust margins for carousel items to prevent overlap */
+.product-page-related-products-section .product-page-carousel-item {
+    margin-bottom: 20px;
+}
