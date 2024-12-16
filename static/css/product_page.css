@@ -94,13 +94,6 @@
     margin-bottom: 8px;
 }
 
-.btn-primary {
-    margin-top: 25px;
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 5px;
-}
-
 /* New styles for vertical carousel of related products */
 .product-page-carousel-vertical {
     height: 300px; /* Set height for carousel */
@@ -165,4 +158,78 @@
 /* Adjust margins for carousel items to prevent overlap */
 .product-page-related-products-section .product-page-carousel-item {
     margin-bottom: 20px;
+}
+
+/* Styles for Bravia Section */
+.product-page-bravia-section {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+
+.product-page-bravia-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.product-page-bravia-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.product-page-bravia-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-page-bravia-card-model {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.product-page-bravia-card-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-page-bravia-buy-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-page-bravia-buy-btn:hover {
+    background-color: #c82333;
+}
+
+.product-page-reviews .stars-container {
+    color: #FFD700; /* Gold color for stars */
+}
+
+.product-page-reviews .star {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.product-page-reviews .star.filled {
+    color: #FFD700; /* Filled stars */
+}
+
+.product-page-reviews .review-count {
+    margin-left: 10px;
+    font-size: 16px;
+    color: #555; /* Light gray color */
 }

@@ -16,11 +16,21 @@ class Customer(models.Model):
 class Product(models.Model):
 
     name = models.CharField(max_length=200, null=True)
-    price = models.DecimalField(max_digits=20, decimal_places=2)
+    price = models.JSONField(null=True, blank=True)
     highlights = models.CharField(max_length=500, null=True)
-    description = models.CharField(max_length=200, null=True)
+    description = models.JSONField(null=True, blank=True)  # Array of strings
     digital = models.BooleanField(default=False, null=True, blank=False)
     image = models.ImageField(null=True, blank=True)
+    size = models.JSONField(null=True, blank=True)
+    features = models.JSONField(null=True, blank=True)  # Array of strings
+    sub_category = models.CharField(max_length=200, null=True, blank=True)
+    category = models.CharField(max_length=200, null=True, blank=True)
+    specifications = models.JSONField(null=True, blank=True)  # Dictionary
+    images = models.JSONField(null=True, blank=True)  # To store an array of image src links
+    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    review_count = models.IntegerField(null=True, blank=True)
+    model = models.JSONField(null=True, blank=True)  # Array of strings
+    combo = models.JSONField(null=True, blank=True)  # Array of strings
     
 
     @property
@@ -76,7 +86,7 @@ class OrderItem(models.Model):
 
     @property
     def get_total(self):
-        total = self.product.price * self.quantity
+        total = self.product.price[0] * self.quantity
         return total
 
 
