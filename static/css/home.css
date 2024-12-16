@@ -15,11 +15,13 @@
   
   /* Hero Section */
   .home-hero {
-    background: url('https://via.placeholder.com/1920x600') no-repeat center center/cover;
+    background: url('https://www.sony.co.in/content/dam/sony/contents/regional-FSMC/india/common/homepage/primary-tout/2024/cich-bravia/CICH-Banner_D.jpg') no-repeat center center/cover;
+    background-size: 160%;  /* Zoom in by 20% */
     color: white;
     text-align: center;
     padding: 100px 20px;
   }
+  
   
   .home-hero-content {
     max-width: 600px;

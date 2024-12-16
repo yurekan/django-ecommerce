@@ -1,5 +1,6 @@
 {% extends 'store/main.html' %}
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html>
@@ -21,13 +22,19 @@
                 <div class="col-lg-4">
                     <img class="thumbnail" src="{{product.imageURL}}">
                     <div class="box-element product">
-                        <h5><strong>{{product.name}}</strong></h5>
-                        <h6><strong>{{product.description}}</strong></h6>
-                        <p>{{product.highlights}}</p>
+                        <p style="font-size: 0.9em; font-weight: lighter; color: #666;">{{product.highlights}}</p>
+                        <h4>{{product.name}}</h4>
+                        <h6>{{product.description}}</h6>
                         <hr>
-                        <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+                        <div class="d-flex gap-4">
+                            <a data-product="{{product.id}}" class="btn btn-primary product-button" href="{%url 'product' product.id%}">Learn more</a>
+                            <button data-product="{{product.id}}" data-action="add" class="btn btn-danger product-button add-btn update-cart">Buy</button>
+                            <p style="display: inline-block; float:right">MRP <strong>Rs.{{product.price|get_by_index:0|floatformat:2}}</strong></p>
+                        </div>
+                        
+                        <!-- <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
                         <a data-product="{{product.id}}" class="btn btn-outline-success view-product" href="{%url 'product' product.id%}">View</a>
-                        <p style="display: inline-block; float:right">MRP <strong>Rs.{{product.price|floatformat:2}}</strong></p>
+                        <p style="display: inline-block; float:right">MRP <strong>Rs.{{product.price|get_by_index:0|floatformat:2}}</strong></p> -->
                     </div>
                 </div>
 

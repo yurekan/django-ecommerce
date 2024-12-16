@@ -17,6 +17,8 @@ def home(request):
 
 def store(request):
     products = Product.objects.all()
+    for product in products:
+        product.description = product.description[0].split(":")[0]
 
     data = cartData(request)
     cartItems = data['cartItems']
@@ -27,6 +29,7 @@ def store(request):
 def cart(request):
 
     data = cartData(request)
+    
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
@@ -48,9 +51,19 @@ def product(request, product_id):
 
     data = cartData(request)
     cartItems = data['cartItems']
-    product = Product.objects.get(id=product_id)
 
-    context = {'product': product, 'cartItems': cartItems}
+    product = Product.objects.get(id=product_id)
+    # if type(product) != 'str':
+    #     product.price = product.price[0]
+    # product.model = product.model[0]
+    # product.size = product.size[0]
+    product.description = product.description[0].split(":")
+    description_title = product.description[0]
+    description_value = product.description[1]
+
+    
+    context = {'product': product, 'cartItems': cartItems, 
+               'description_title': description_title, 'description_value': description_value}
     return render(request, 'store/product.html', context)
 
 
@@ -60,6 +73,7 @@ def updateItem(request):
     action = data['action']
     customer = request.user.customer
     product = Product.objects.get(id=productId)
+    product.price = product.price[0]
     order, created = Order.objects.get_or_create(customer=customer,
                                                   completed=False)
 
